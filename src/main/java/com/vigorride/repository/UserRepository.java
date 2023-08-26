@@ -8,8 +8,8 @@ import com.vigorride.entity.User;
 
 public interface UserRepository extends JpaRepository<User,Long> {
 
-	User findByEmail(String email);
+	Optional<User> findByEmailOrUserName(final String email,final String username);
 
-	Optional<User> findByUserName(String username);
+	Optional<User> findByUserName(final String username);
 
 }
