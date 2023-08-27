@@ -7,8 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -18,6 +16,8 @@ public class SecurityConfig {
 
     @Autowired
     private TokenValidationFilter tokenValidationFilter;
+    // @Autowired
+    // private CustomUserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -26,6 +26,9 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .requestMatchers("/vigorride/auth").permitAll()
                 .requestMatchers("/vigorride/signup").permitAll()
+                // .requestMatchers("/vigorride/resetpassword").hasRole("ADMIN")
+                .requestMatchers("/vigorride/resetpassword").hasRole("ADMIN")
+
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(tokenValidationFilter, UsernamePasswordAuthenticationFilter.class);
@@ -37,10 +40,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return encoder;
-    }
-
-    @Bean
-    public JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withJwkSetUri("http://localhost:8080/oauth2/token").build();
     }
 }

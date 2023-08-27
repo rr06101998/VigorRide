@@ -31,7 +31,7 @@ public class SignUpPayload {
 	private String userName;
 
 	@NotNull
-	private String mobileNo;
+	private Long mobileNo;
 
 	@NotNull
 	private String password;

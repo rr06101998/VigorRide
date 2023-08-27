@@ -48,7 +48,7 @@ public class User {
 	private String userName;
 
 	@Column(name = "mobile_no", nullable = true, unique = true)
-	private String mobileNo;
+	private Long mobileNo;
 
 	@NotNull
 	@Column(name = "password", nullable = false)
@@ -56,5 +56,4 @@ public class User {
 
 	@Column(name = "user_type", nullable = true)
 	private Boolean userType;
-
 }

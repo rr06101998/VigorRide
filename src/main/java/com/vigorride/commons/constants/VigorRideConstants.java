@@ -1,4 +1,4 @@
-package com.vigorride.constants;
+package com.vigorride.commons.constants;
 
 public class VigorRideConstants {
 
