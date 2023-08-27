@@ -4,10 +4,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.vigorride.commons.vault.EncryptionService;
 import com.vigorride.entity.User;
 import com.vigorride.repository.UserRepositoryWrapper;
 import com.vigorride.signup.Exception.ConfirmPasswordNotMatchException;
 import com.vigorride.signup.Exception.EmailAlreadyExistsException;
+import com.vigorride.signup.Exception.MobileNoAlreadyExistException;
 import com.vigorride.signup.Exception.UserNameAlreadyExistsException;
 import com.vigorride.signup.data.SignUpPayload;
 
@@ -18,9 +20,16 @@ import lombok.RequiredArgsConstructor;
 public class SignUpServiceImpl implements SignUpService {
 
 	private final UserRepositoryWrapper userRepositoryWrapper;
+	private final EncryptionService encryptionService;
 
 	@Override
 	public void signUp(SignUpPayload signUpPayload) {
+		try {
+			signUpPayload.setPassword(this.encryptionService.encrypt(signUpPayload.getPassword()));
+			signUpPayload.setConfirmPassword(this.encryptionService.encrypt(signUpPayload.getConfirmPassword()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		CheckValidation(signUpPayload);
 		User user = User.builder().salutation(signUpPayload.getSalutation())
 				.firstName(signUpPayload.getFirstName())
@@ -39,14 +48,17 @@ public class SignUpServiceImpl implements SignUpService {
 			throw new ConfirmPasswordNotMatchException(signUpPayload.getPassword());
 		}
 
-		Optional<User> user =userRepositoryWrapper.findByEmailOrUserName(signUpPayload.getEmail(), signUpPayload.getUserName());
+		Optional<User> user =userRepositoryWrapper.findByEmailOrUserNameOrMobileNo(signUpPayload.getEmail(), signUpPayload.getUserName(),signUpPayload.getMobileNo());
 
 		if(user.isPresent()){
 			if(user.get().getEmail().equals(signUpPayload.getEmail())){
 				throw new EmailAlreadyExistsException(signUpPayload.getEmail());
 			}
+			if(user.get().getMobileNo().equals(signUpPayload.getMobileNo())){
+				throw new MobileNoAlreadyExistException(signUpPayload.getMobileNo());
+			}
+			if(user.get().getUserName().equals(signUpPayload.getUserName()))
 			throw new UserNameAlreadyExistsException(signUpPayload.getUserName());
-
 		}
 
 

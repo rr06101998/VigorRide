@@ -3,7 +3,7 @@ package com.vigorride.reports.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vigorride.constants.VigorRideConstants;
+import com.vigorride.commons.constants.VigorRideConstants;
 
 @RestController
 @RequestMapping(VigorRideConstants.REPORTS_BASE_URL) 

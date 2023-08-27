@@ -1,7 +1,5 @@
-package com.vigorride.entity;
+package com.vigorride.product.entity;
 
-import java.math.BigDecimal;
-import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,31 +18,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="Product")
-public class Product {
+@Table(name="Product_Category")
+public class ProductCategory {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	private Long id;
 	
-	@NonNull
-	@Column(name="promotion_id",nullable=false)
-	private String promotionId;
 	
+	@Column(name="promotion_id")
+	private Long promotionId;
+
 	@NotNull
 	@Column(name="name",nullable=false)
 	private String name;
 	
-	@Column(name="category_id",nullable=false)
-	private String categoryId;
-	
-	@Column(name="brand",nullable=false)
-	private String brand;
-	
-	@Column(name="product_description",nullable=false)
-	private String productDescription;
-	
-	@Column(name="price",nullable=false)
-	private BigDecimal price;
-	
+	@Column(name="category_description",nullable=false)
+	private String categoryDescription;
+
 }

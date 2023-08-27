@@ -26,4 +26,8 @@ public class UserRepositoryWrapper {
 
 	}
 
+    public Optional<User> findByEmailOrUserNameOrMobileNo(String email, String userName, Long mobileNo) {
+		return this.userRepository.findByEmailOrUserNameOrMobileNo(email,userName,mobileNo);
+    }
+
 }

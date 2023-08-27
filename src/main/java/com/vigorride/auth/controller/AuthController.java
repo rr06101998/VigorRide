@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vigorride.auth.data.AuthPayload;
 import com.vigorride.auth.service.AuthService;
-import com.vigorride.constants.VigorRideConstants;
+import com.vigorride.commons.constants.VigorRideConstants;
 
 import jakarta.validation.Valid;
 
@@ -19,7 +19,6 @@ public class AuthController {
 	@Autowired
 	private AuthService authService;
 		
-	
 	
 	@PostMapping("/auth")
 	public String login(@Valid @RequestBody AuthPayload authPayload) {
