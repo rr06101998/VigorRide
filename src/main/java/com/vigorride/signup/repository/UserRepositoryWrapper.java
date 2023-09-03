@@ -1,4 +1,4 @@
-package com.vigorride.repository;
+package com.vigorride.signup.repository;
 
 import java.util.Optional;
 

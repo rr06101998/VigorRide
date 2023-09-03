@@ -19,7 +19,7 @@ import com.vigorride.auth.service.JwtService;
 import com.vigorride.entity.Role;
 import com.vigorride.entity.User;
 import com.vigorride.repository.RoleRepositoryWrapper;
-import com.vigorride.repository.UserRepositoryWrapper;
+import com.vigorride.signup.repository.UserRepositoryWrapper;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

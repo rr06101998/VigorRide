@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.vigorride.commons.vault.EncryptionService;
 import com.vigorride.entity.User;
-import com.vigorride.repository.UserRepositoryWrapper;
 import com.vigorride.resetPassword.data.ResetPasswordPayload;
 import com.vigorride.resetPassword.exception.UserNotExistsException;
 import com.vigorride.signup.Exception.ConfirmPasswordNotMatchException;
+import com.vigorride.signup.repository.UserRepositoryWrapper;
 
 import lombok.RequiredArgsConstructor;
 

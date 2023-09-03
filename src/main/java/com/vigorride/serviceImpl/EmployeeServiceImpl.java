@@ -5,9 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.vigorride.entity.User;
-import com.vigorride.repository.AddressRepository;
-import com.vigorride.repository.UserRepository;
 import com.vigorride.service.EmployeeService;
+import com.vigorride.signup.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
