@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 
 import com.vigorride.commons.vault.EncryptionService;
 import com.vigorride.entity.User;
-import com.vigorride.repository.UserRepositoryWrapper;
 import com.vigorride.signup.Exception.ConfirmPasswordNotMatchException;
 import com.vigorride.signup.Exception.EmailAlreadyExistsException;
 import com.vigorride.signup.Exception.MobileNoAlreadyExistException;
 import com.vigorride.signup.Exception.UserNameAlreadyExistsException;
 import com.vigorride.signup.data.SignUpPayload;
+import com.vigorride.signup.repository.UserRepositoryWrapper;
 
 import lombok.RequiredArgsConstructor;
 

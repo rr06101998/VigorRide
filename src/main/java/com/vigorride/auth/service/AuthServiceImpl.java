@@ -9,7 +9,7 @@ import com.vigorride.auth.Exception.LoginCredentialsInvalidException;
 import com.vigorride.auth.data.AuthPayload;
 import com.vigorride.commons.vault.EncryptionService;
 import com.vigorride.entity.User;
-import com.vigorride.repository.UserRepositoryWrapper;
+import com.vigorride.signup.repository.UserRepositoryWrapper;
 
 @Service
 public class AuthServiceImpl implements AuthService{
