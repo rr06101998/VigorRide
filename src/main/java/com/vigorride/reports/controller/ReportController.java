@@ -1,8 +1,13 @@
 package com.vigorride.reports.controller;
 
+
+import java.io.IOException;
+
 import javax.ws.rs.QueryParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vigorride.commons.constants.VigorRideConstants;
+import com.vigorride.framework.data.FileData;
 import com.vigorride.reports.data.CreateReportPayload;
 import com.vigorride.reports.data.CreateReportResponse;
 import com.vigorride.reports.data.FetchReportResponse;
@@ -42,6 +48,17 @@ public class ReportController {
 	@PostMapping("/{reportId}/create/reportrequest")
 	public ReportRequestResponse createReportRequest(@PathVariable Long reportId) {
 		return this.reportWriteService.createReportRequest(reportId);
+	}
+
+	@GetMapping("/{reportRequestId}/download")
+	public ResponseEntity<byte[]> downloadReport(@PathVariable Long reportRequestId) throws IOException {
+		FileData fileData=this.reportReadService.downloadReport(reportRequestId);
+		byte[] data=fileData.getInputStream().readAllBytes();
+		HttpHeaders headers=new HttpHeaders();
+		headers.set("Content-Type","application/TXT");
+        headers.set("Content-Disposition", "attachment ;filename = N.txt");
+		return ResponseEntity.ok().headers(headers).body(data);
+	
 	}
 
 	

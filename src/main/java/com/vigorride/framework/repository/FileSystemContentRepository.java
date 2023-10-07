@@ -9,6 +9,8 @@ import java.io.OutputStream;
 import org.springframework.stereotype.Service;
 
 import com.vigorride.framework.command.DocumentCommand;
+import com.vigorride.framework.data.DocumentData;
+import com.vigorride.framework.data.FileData;
 
 @Service
 public class FileSystemContentRepository implements ContentRepository {
@@ -58,5 +60,13 @@ public class FileSystemContentRepository implements ContentRepository {
         } catch (final IOException ioException) {
 
         }
+    }
+
+    @Override
+    public FileData fetchFile(DocumentData documentData) { 
+        final File file=new File(documentData.getLocation());
+        return new FileData(file,documentData.getFileName(),documentData.getType());
+       
+       
     }
 }

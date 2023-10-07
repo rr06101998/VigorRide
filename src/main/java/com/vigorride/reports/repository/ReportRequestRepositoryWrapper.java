@@ -1,5 +1,7 @@
 package com.vigorride.reports.repository;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,10 @@ public class ReportRequestRepositoryWrapper {
 
     public ReportRequest save(ReportRequest reportRequest) {
         return this.reportRequestRepository.save(reportRequest);
+    }
+
+    public Optional<ReportRequest> findById(Long id) {
+        return  this.reportRequestRepository.findById(id);
     }
 
     
