@@ -9,6 +9,9 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -16,22 +19,19 @@ public class SecurityConfig {
 
     @Autowired
     private TokenValidationFilter tokenValidationFilter;
-    // @Autowired
-    // private CustomUserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        http.csrf().disable()
-                .authorizeRequests()
+        http.cors()
+        .and()
+            .csrf().disable()
+            .authorizeRequests()
                 .requestMatchers("/vigorride/auth").permitAll()
                 .requestMatchers("/vigorride/signup").permitAll()
-                // .requestMatchers("/vigorride/resetpassword").hasRole("ADMIN")
                 .requestMatchers("/vigorride/resetpassword").hasRole("ADMIN")
-
                 .anyRequest().authenticated()
-                .and()
-                .addFilterBefore(tokenValidationFilter, UsernamePasswordAuthenticationFilter.class);
+            .and()
+            .addFilterBefore(tokenValidationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -41,4 +41,12 @@ public class SecurityConfig {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return encoder;
     }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
+    }
+    
 }

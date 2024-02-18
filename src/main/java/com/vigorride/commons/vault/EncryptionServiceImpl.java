@@ -19,7 +19,7 @@ import com.vigorride.repository.GlobalConfigurationRepositoryWrapper;
 public class EncryptionServiceImpl implements EncryptionService{
 
     @Autowired
-    private   GlobalConfigurationRepositoryWrapper nedkjw;
+    private   GlobalConfigurationRepositoryWrapper globalConfigurationRepositoryWrapper;
 
     private static final String ENCRYPTION_ALGORITHM = "AES";
     private static final int KEY_SIZE = 128; // 128-bit key
@@ -33,7 +33,7 @@ public class EncryptionServiceImpl implements EncryptionService{
 
     @Override
     public String encrypt(String plaintext) throws Exception {
-        Optional<GlobalConfiguration> globalConfiguration=this.nedkjw.findByName("secret_key");   
+        Optional<GlobalConfiguration> globalConfiguration=this.globalConfigurationRepositoryWrapper.findByName("secret_key");   
 
         SecretKey secretKey = generateSecretKey(globalConfiguration.get().getValue());
         Cipher cipher = Cipher.getInstance(ENCRYPTION_ALGORITHM);
@@ -49,7 +49,7 @@ public class EncryptionServiceImpl implements EncryptionService{
 
     @Override
     public String decrypt(String encryptedText) throws Exception {
-        Optional<GlobalConfiguration> globalConfiguration=this.nedkjw.findByName("secret_key");   
+        Optional<GlobalConfiguration> globalConfiguration=this.globalConfigurationRepositoryWrapper.findByName("secret_key");   
         SecretKey secretKey = generateSecretKey(globalConfiguration.get().getName());
         Cipher cipher = Cipher.getInstance(ENCRYPTION_ALGORITHM);
         cipher.init(Cipher.DECRYPT_MODE, secretKey);
